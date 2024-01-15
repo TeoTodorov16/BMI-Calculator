@@ -44,7 +44,7 @@ class CalculateViewController: UIViewController {
         bmiValue = String(format: "%.1f", bmi)
         
         
-        self.performSegue(withIdentifier: "goToResult", sender: self)
+        performSegue(withIdentifier: "goToResult", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
