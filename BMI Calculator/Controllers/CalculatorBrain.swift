@@ -6,26 +6,37 @@
 //  Copyright © 2024 Angela Yu. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 
 struct CalculatorBrain {
     
-    var bmi: Float = 0.0
-    let height: Int?
-    let weight: Int?
+    var bmi: BMI?
     
-    init (height: Int?, weight: Int?) {
-        self.height = height
-        self.weight = weight
+    func getColor () -> UIColor {
+        let bmiColor = bmi?.color ?? .blue
+        return bmiColor
+    }
+    
+    func getAdvice () -> String {
+        let bmiAdvice = bmi?.advice ?? "That's craazy"
+        return bmiAdvice
     }
     
     func getBMIValue () -> String {
-        let bmiTo1DecimalPlace = String(format: "%.1f", bmi)
+        let bmiTo1DecimalPlace = String(format: "%.1f", bmi?.value ?? 0.0 )
         return bmiTo1DecimalPlace
     }
     
     mutating func calculateBMI (height: Float, weight: Float) {
-        bmi = weight / (height * height)
+        let bmiValue = weight / (height * height)
+        
+        if bmiValue < 18.5 {
+            bmi = BMI(value: bmiValue, advice: "Eat more pies!", color: .blue)
+        } else if bmiValue < 24.9 {
+            bmi = BMI(value: bmiValue, advice: "Fit as a fiddle!", color: .green)
+        } else {
+            bmi = BMI(value: bmiValue, advice: "Eat fewer pie!", color: .red)
+        }
     }
 }
